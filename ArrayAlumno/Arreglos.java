@@ -30,12 +30,14 @@ public class Arreglos {
 
         do{
             System.out.println("========== MENU ================");
-            System.out.println("[1] Ingresar Alumnos");
-            System.out.println("[2] Buscar un alumno");
-            System.out.println("[3] Visualizar los Alumnos");
-            System.out.println("[4] Modificar un Alumno");
-            System.out.println("[5] Eliminar un Alumno");
-            System.out.println("[6] Salir");
+            System.out.println("[1] Ingresar Alumnos al final del array");
+            System.out.println("[2] Ingresar Alumnos al principio del arrary");
+            System.out.println("[3] Ingresar Alumnos en la posición que desee del array");
+            System.out.println("[4] Buscar un alumno");
+            System.out.println("[5] Visualizar los Alumnos");
+            System.out.println("[6] Modificar un Alumno");
+            System.out.println("[7] Eliminar un Alumno");
+            System.out.println("[8] Salir");
             opc=teclado.nextInt(); //teclado
 
             switch(opc){
@@ -43,18 +45,24 @@ public class Arreglos {
                     ingresarFinal();
                     break;
                 case 2:
-                    buscar();
+                    ingresarPrincipio();
                     break;
                 case 3:
-                    visualizar();
+                    ingresarMedio();
                     break;
                 case 4:
-                    modificar();
+                    buscar();
                     break;
                 case 5:
-                    eliminar();
+                    visualizar();
                     break;
                 case 6:
+                    modificar();
+                    break;
+                case 7:
+                    eliminar();
+                    break;
+                case 8:
                     salir();
                     break;
                 default:
@@ -63,8 +71,9 @@ public class Arreglos {
 
         }while(opc!=6);
     }
-    /*dada una posicion que devuelva su valor y no encuentra que devuelva -1*/
 
+
+   /*dada una posicion que devuelva su valor y no encuentra que devuelva -1*/
     static int getDni(String dni){
         for(int pos=0;pos<posicion_Actual;pos++){
             Alumnos al=alumnos[pos];
@@ -109,16 +118,6 @@ public class Arreglos {
         }
     }
 
-    /*
-    private static void ingresarPincipioFor(){
-
-        Alumnos alu = new Alumnos();
-
-        for ()
-
-
-    }
-*/
     private static void ingresarPrincipio(){
 
         System.arraycopy(alumnos, 0, alumnos, 1, alumnos.length);
