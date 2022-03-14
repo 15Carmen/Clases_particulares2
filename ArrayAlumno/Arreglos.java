@@ -7,41 +7,20 @@ public class Arreglos {
     /**
      * @param args the command line arguments
      */
-    //static int numeros[]=new int[100];
-    static boolean flag=true;
-    //alumnos
 
+    static boolean flag=true;
+
+    //alumnos
     static int MAXIMO_ALUMNOS=10;
     static Alumnos alumnos[]=new Alumnos[MAXIMO_ALUMNOS];
     static int posicion_Actual=0;
 
     public static void main(String[] args) {
-        // TODO code application logic here
-        /*
-        objeto obj=new objeto();
-        objeto obj2=new objeto();
-        objetos[0]=obj;
-        objetos[1]=obj2;
-        objetos[2]=obj2;
-        objetos[3]=obj;
-
-        objetos[1]=null;//eliminacion logica no fisica
-        */
-        //if(objetos[1]!=null)
-
 
         menu();
 
 
     }
-
-    /*
-    1 inicialize el array con los 100 primeros numero pares
-    2 buscar dada una posicion
-    3 visualize la informacion del arreglo
-    4 cambiar/actualizar su valor dada una posicion
-    5 salir
-    */
 
     private static void menu() {
 
@@ -61,7 +40,7 @@ public class Arreglos {
 
             switch(opc){
                 case 1:
-                    ingresar();
+                    ingresarFinal();
                     break;
                 case 2:
                     buscar();
@@ -86,16 +65,7 @@ public class Arreglos {
     }
     /*dada una posicion que devuelva su valor y no encuentra que devuelva -1*/
 
-    static boolean getDni(String dni){
-
-        for(int pos=0;pos<posicion_Actual;pos++){
-            Alumnos al=alumnos[pos];
-            if(al.getDni().equals(dni))
-                return true;
-        }
-        return false;
-    }
-    static int getDniPos(String dni){
+    static int getDni(String dni){
         for(int pos=0;pos<posicion_Actual;pos++){
             Alumnos al=alumnos[pos];
             //if(al.getDni()==dni)
@@ -105,31 +75,71 @@ public class Arreglos {
         return -1;
     }
 
-    //metodo para agregar al principio, al final y en una posicion
-    private static void ingresar() {
+    private static Alumnos ingresar() {
+
+        Scanner teclado=new Scanner(System.in);
+
+        System.out.println("Ingrese nombre de alumno!!");
+        String nombre=teclado.nextLine();
+
+        System.out.println("Ingrese edad de alumno!!");
+        int edad=teclado.nextInt();
+
+        System.out.println("Ingrese dni de alumno!!");
+        //limpiar el buffer
+        teclado.nextLine();
+        String dni=teclado.nextLine();
+
+        Alumnos al=new Alumnos(nombre,edad,dni);
+        return al;
+    }
+
+    //metodo para agregar al principio, al final y en una posición
+
+    private static void ingresarFinal() {
 
         if(posicion_Actual<MAXIMO_ALUMNOS){
-            Scanner teclado=new Scanner(System.in);
-            System.out.println("Ingrese nombre de alumno!!");
-            String nombre=teclado.nextLine();
-            System.out.println("Ingrese edad de alumno!!");
-            int edad=teclado.nextInt();
 
-            System.out.println("Ingrese dni de alumno!!");
-            //limpiar el buffer
-            teclado.nextLine();
-
-            String dni=teclado.nextLine();
-            Alumnos al=new Alumnos(nombre,edad,dni);
-            alumnos[posicion_Actual]=al;
+            alumnos[posicion_Actual]= ingresar();
             posicion_Actual++;
-            flag=false;//saber si hay elementos en mmi arreglo
+
+            flag=false;//saber si hay elementos en mi arreglo
         }else{
-            System.out.println("No s epuede ingresar mas alumnos!!");
+            System.out.println("No se puede ingresar más alumnos!!");
         }
     }
 
+    /*
+    private static void ingresarPincipioFor(){
+
+        Alumnos alu = new Alumnos();
+
+        for ()
+
+
+    }
+*/
+    private static void ingresarPrincipio(){
+
+        System.arraycopy(alumnos, 0, alumnos, 1, alumnos.length);
+        alumnos[0] = ingresar();
+
+    }
+
+    private static void ingresarMedio(){
+
+        Scanner teclado=new Scanner(System.in);
+
+        System.out.println("Ingrese la posicion en la que desea ingresar el alumno");
+        int pos= teclado.nextInt();
+
+        System.arraycopy(alumnos, pos, alumnos, pos++, alumnos.length);
+        alumnos[pos] = ingresar();
+
+    }
+
     private static void buscar() {
+
         if(flag){
             System.out.println("No se puede buscar,se necesita inicializar la informacion!!");
             return;
@@ -138,8 +148,7 @@ public class Arreglos {
         Scanner teclado=new Scanner(System.in);
         String dni=teclado.nextLine();
 
-
-        if(getDni(dni)){
+        if(getDni(dni) != -1){
             System.out.println("El alumno esta registrado!!");
 
         }else{
@@ -167,7 +176,7 @@ public class Arreglos {
         System.out.println("Digite dni del Alumno");
         Scanner teclado=new Scanner(System.in);
         String dni=teclado.nextLine();
-        int pos=getDniPos(dni);
+        int pos=getDni(dni);
         if(pos!=-1){
             Alumnos al=alumnos[pos];
             System.out.println("Digite su nombre");
@@ -200,7 +209,7 @@ public class Arreglos {
         System.out.println("Digite dni del Alumno");
         Scanner teclado=new Scanner(System.in);
         String dni=teclado.nextLine();
-        int pos=getDniPos(dni);
+        int pos=getDni(dni);
         if(pos!=-1){
             //lo encuentra
             alumnos[pos]=null;

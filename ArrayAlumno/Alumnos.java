@@ -8,6 +8,7 @@ public class Alumnos {
 
     private float notas[];
 
+    public Alumnos() {}
     public Alumnos(String nombre, int edad,String dni) {
         this.nombre = nombre;
         this.edad = edad;
